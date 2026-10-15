@@ -1,0 +1,139 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>فاکتور</title>
+    <link href="{% static 'css/bootstrap.rtl.min.css' %}" rel="stylesheet">
+    <style>
+        /* استایل‌های مربوط به فوتر */
+        .royal-footer {
+            background-color: #0f172a;
+            /* رنگ تیره مشابه هدر */
+            color: #ccc;
+            /* رنگ متن پیش‌فرض */
+            padding-top: 4rem;
+            /* فضای بالا */
+            padding-bottom: 2rem;
+            /* فضای پایین */
+        }
+
+        .royal-footer h5 {
+            color: #fff;
+            /* عنوان‌ها سفید */
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+        }
+
+        .royal-footer .list-unstyled li {
+            margin-bottom: 0.75rem;
+        }
+
+        .royal-footer .list-unstyled a {
+            color: #aaa;
+            /* لینک‌های خاکستری */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .royal-footer .list-unstyled a:hover {
+            color: #fbbf24;
+            /* رنگ طلایی در هاور */
+            text-decoration: underline;
+        }
+
+        .royal-footer .text-muted {
+            color: #aaa !important;
+            /* اطمینان از رنگ متن خاکستری */
+        }
+
+        .royal-footer .border-top {
+            border-color: #334155 !important;
+            /* رنگ خط جداکننده */
+        }
+
+        .royal-footer .social-icons a {
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .royal-footer .social-icons a:hover {
+            color: #fbbf24;
+            /* رنگ طلایی در هاور آیکون‌ها */
+        }
+
+        /* برای اطمینان از نمایش آیکون‌های Font Awesome */
+        /* اگر از Font Awesome استفاده نمی‌کنید، این بخش را حذف کنید */
+        /* و در صورت نیاز آیکون‌های SVG یا ایموجی جایگزین کنید */
+        .royal-footer .fas,
+        .royal-footer .fab {
+            color: #fbbf24;
+            /* رنگ طلایی برای آیکون‌ها */
+            margin-right: 0.5rem;
+        }
+
+        /* برای واکنش‌گرایی (Responsive) */
+        @media (min-width: 992px) {
+            .royal-footer .row-cols-lg-3>* {
+                flex: 1;
+                /* اجازه می‌دهد ستون‌ها فضای مساوی بگیرند */
+            }
+        }
+
+        .royal-footer p.mb-0 {
+            font-size: 0.9rem;
+            /* فونت کوچک‌تر برای کپی‌رایت */
+        }
+
+        @font-face {
+            font-family: "byekan";
+            src: url({% static "fonts/yekan.ttf"%});
+        }
+
+        @font-face {
+            font-family: "byekan2";
+            src: url({% static "fonts/byekan2.TTF"%});
+        }
+
+        @font-face {
+            font-family: "sans";
+            src: url({% static "fonts/iraniansans.ttf"%});
+        }
+
+        @font-face {
+            font-family: "Vazir";
+            src: url("{% static 'fonts/Vazir.woff2' %}") format("woff2"),
+            url("{% static 'fonts/Vazir.woff' %}") format("woff"),
+            url("{% static 'fonts/Vazir.ttf' %}") format("truetype");
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+    </style>
+
+</head>
+
+<body class="d-flex flex-column min-vh-100" style="font-family: vazir">
+
+    <!-- Navbar -->
+    {% include "inc/navbar.html" %}
+    {% include "inc/message.html" %}
+
+    <main class="flex-grow-1">
+        {% block content %}
+        {% endblock content %}
+    </main>
+
+
+
+    <footer>
+
+        {% include "inc/footer.html" %}
+    </footer>
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

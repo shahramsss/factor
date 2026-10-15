@@ -1,0 +1,97 @@
+<style>
+  .navbar {
+    background-color: #2871b9; /* رنگ تیره */
+  }
+  .navbar-brand {
+    font-weight: bold;
+    color: #ecf0f1;
+  }
+  .navbar-brand:hover {
+    color: #bdc3c7;
+  }
+  .nav-link {
+    color: #ecf0f1;
+    margin-right: 10px;
+  }
+  .nav-link:hover {
+    color: #bdc3c7;
+  }
+  .navbar-logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <!-- لوگو و دکمه اصلی صفحه -->
+    <a class="navbar-brand text-warning" href="">فاکتور</a>
+
+    <!-- دکمه‌ی باز و بسته شدن Navbar در موبایل -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+
+    <!-- محتوای Navbar -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- لینک‌های اصلی Navbar -->
+        <li class="nav-item">
+          <a class="nav-link" href="">خانه</a>
+        </li>
+      </ul>
+
+      <!-- دکمه‌های ورود و ثبت نام یا منوی کاربر بسته به وضعیت احراز هویت -->
+      <div class="d-flex align-items-center gap-3">
+        <!-- 📞 دکمه تماس -->
+
+        {% if user.is_manager or user.is_staff or user.is_superuser %}
+          <!-- 👤 منوی کاربر -->
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">{{ request.user.full_name }}</a>
+
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                  <a class="dropdown-item" href="">اجاره های من</a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="">فروش های من</a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="">ثبت اجاره</a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="">ثبت فروش</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="">مدیریت اطلاعات حقوقی</a>
+                </li>
+
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="">پروفایل</a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item" href="">تغییر رمز عبور</a>
+                </li>
+
+                <li>
+                  <a class="dropdown-item text-danger" href="">خروج</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        {% else %}
+          <a class="btn btn-dark" href="">ورود</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
