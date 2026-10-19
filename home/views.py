@@ -30,6 +30,7 @@ class InvoiceDetailView(DetailView):
     model = Invoice
     template_name = "home/invoice_detail.html"
     context_object_name = "invoice"
+    
 
 
 # کلاس پایه برای مدیریت مشترک فرم و فرم‌ست (Create و Update)
