@@ -2,7 +2,6 @@ from django.db import models
 
 class Invoice(models.Model):
     # اطلاعات هدر فاکتور
-    invoice_number = models.CharField(max_length=50, unique=True, verbose_name="شماره فاکتور")
     date = models.DateField(verbose_name="تاریخ صدور")
     sender = models.CharField(max_length=200, verbose_name="از طرف (فروشنده)")
     receiver = models.CharField(max_length=200, verbose_name="به نام (خریدار)")

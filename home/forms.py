@@ -5,10 +5,9 @@ from django.forms import inlineformset_factory
 class InvoiceForm(forms.ModelForm):
     class Meta:
         model = Invoice
-        fields = ['invoice_number', 'date', 'sender', 'receiver', 'discount', 'tax', 'status', 'notes']
+        fields = [ 'date', 'sender', 'receiver', 'discount', 'tax', 'status', 'notes']
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            'invoice_number': forms.TextInput(attrs={'class': 'form-control'}),
             'sender': forms.TextInput(attrs={'class': 'form-control'}),
             'receiver': forms.TextInput(attrs={'class': 'form-control'}),
             'discount': forms.NumberInput(attrs={'class': 'form-control'}),

@@ -31,7 +31,7 @@
                             {% for invoice in invoices %}
                                 <tr>
                                     <td>
-                                        <strong>{{ invoice.invoice_number|persian }}</strong>
+                                        <strong>{{ invoice.id|persian }}</strong>
                                     </td>
                                     <td>{{ invoice.date|to_jalali }}</td>
                                     <td>{{ invoice.receiver }}</td>
