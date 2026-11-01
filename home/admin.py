@@ -14,10 +14,10 @@ class InvoiceAdmin(admin.ModelAdmin):
     # گروه‌بندی فیلدها در پنل ادمین برای نظم بیشتر
     fieldsets = (
         ('اطلاعات اصلی فاکتور', {
-            'fields': ('invoice_id', 'date', 'status', 'notes')
+            'fields': ( 'date', 'status', 'notes')
         }),
         ('اطلاعات فروشنده و بانکی', {
-            'fields': ('sender', 'card_number', 'account_number')
+            'fields': ('sender', 'card_number', 'account_number', 'bank_name')
         }),
         ('اطلاعات خریدار', {
             'fields': ('receiver', 'receiver_national_id', 'receiver_address')

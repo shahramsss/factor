@@ -25,6 +25,7 @@ class Invoice(models.Model):
         max_length=50, blank=True, null=True, 
         verbose_name="شماره حساب / شبا"
     )
+    bank_name = models.CharField(max_length=100, blank=True, null=True, verbose_name="نام بانک") 
     # ────────────────────────────────────────────────
     
     # فیلدهای محاسباتی و تکمیلی
@@ -43,7 +44,7 @@ class Invoice(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="تاریخ ایجاد سیستمی")
 
     def __str__(self):
-        return f"فاکتور شماره {self.invoice_number} - {self.receiver}"
+        return f"فاکتور شماره {self.id} - {self.receiver}"
 
     # متد برای محاسبه جمع کل اقلام (Subtotal)
     @property

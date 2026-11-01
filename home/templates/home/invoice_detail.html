@@ -155,10 +155,26 @@
                             <li class="mb-1">آدرس: <strong class="text-dark">{{ invoice.receiver_address }}</strong></li>
                         {% endif %}
                         {% if invoice.card_number %}
-                            <li class="mb-1">شماره کارت: <strong dir="ltr" class="text-dark">{{ invoice.card_number|persian }}</strong></li>
+                            <li class="mb-1">
+                                شماره کارت: 
+                                <strong dir="ltr" class="text-dark">
+                                    {{ invoice.card_number|persian }}
+                                    {% if invoice.bank_name %}
+                                        <span class="text-muted fw-normal">({{ invoice.bank_name }})</span>
+                                    {% endif %}
+                                </strong>
+                            </li>
                         {% endif %}
-                        {% if invoice.account_number %}
-                            <li class="mb-0">شماره حساب / شبا: <strong dir="ltr" class="text-dark">{{ invoice.account_number|persian }}</strong></li>
+                        {% if invoice.card_number %}
+                            <li class="mb-1">
+                               شماره حساب / شبا:
+                                <strong dir="ltr" class="text-dark">
+                                    {{ invoice.account_number|persian }}
+                                    {% if invoice.bank_name %}
+                                        <span class="text-muted fw-normal">({{ invoice.bank_name }})</span>
+                                    {% endif %}
+                                </strong>
+                            </li>
                         {% endif %}
                     </ul>
                 </div>
