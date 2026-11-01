@@ -1,8 +1,74 @@
 {% extends 'base.html' %}
-{% load static %}
 {% load filters %}
-{% block content %}
 
-  
-<a class="btn btn-success m-3" href="{% url 'home:invoice_list' %}">فاکتورها</a>
-{% endblock %}
+{% block content %}
+<div class="container py-5">
+    <!-- بخش خوش‌آمدگویی و معرفی -->
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm border text-center text-md-start">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-6 fw-bold text-primary mb-3">سیستم مدیریت و صدور فاکتور</h1>
+                <p class="fs-6 text-muted mb-4">
+                    به راحتی فاکتورهای فروش و خدمات خود را ایجاد کنید، اقلام آن‌ها را مدیریت نمایید و در هر لحظه نسخه چاپی یا دیجیتال آن‌ها را دریافت کنید.
+                </p>
+                <div>
+                    <a href="{% url 'home:invoice_list' %}" class="btn btn-primary btn-lg px-4 me-md-2 mb-2 mb-md-0">
+                        📄 مشاهده لیست فاکتورها
+                    </a>
+                    <!-- اگر روت ساخت فاکتور جدید دارید، لینک زیر را فعال کنید -->
+                    <!-- <a href="{% url 'home:invoice_create' %}" class="btn btn-outline-success btn-lg px-4">➕ فاکتور جدید</a> -->
+                </div>
+            </div>
+            <div class="col-md-4 text-center mt-4 mt-md-0">
+                <!-- آیکون یا تصویر نمایشی گرافیکی ساده -->
+                <div class="display-1 text-primary">📊</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- کارت‌های دسترسی سریع و راهنما -->
+    <div class="row g-4 py-2">
+        <!-- کارت اول: مدیریت فاکتورها -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="fs-1 text-primary mb-3">🧾</div>
+                    <h5 class="card-title fw-bold">فاکتورهای ثبت‌شده</h5>
+                    <p class="card-text text-muted small">
+                        مشاهده، جستجو، ویرایش، حذف و چاپ تمامی فاکتورهای صادر شده برای مشتریان.
+                    </p>
+                    <a href="{% url 'home:invoice_list' %}" class="btn btn-sm btn-outline-primary mt-2">رفتن به لیست</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- کارت دوم: وضعیت پرداخت‌ها -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="fs-1 text-success mb-3">💳</div>
+                    <h5 class="card-title fw-bold">وضعیت مالی</h5>
+                    <p class="card-text text-muted small">
+                        پیگیری فاکتورهای پرداخت‌شده و پرداخت‌نشده به همراه محاسبه خودکار مالیات و تخفیف‌ها.
+                    </p>
+                    <a href="{% url 'home:invoice_list' %}" class="btn btn-sm btn-outline-success mt-2">بررسی وضعیت</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- کارت سوم: اطلاعات کسب‌وکار -->
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body text-center p-4">
+                    <div class="fs-1 text-warning mb-3">⚙️</div>
+                    <h5 class="card-title fw-bold">اطلاعات و تنظیمات</h5>
+                    <p class="card-text text-muted small">
+                        مدیریت اطلاعات فروشنده، شماره کارت، شماره حساب و آدرس برای درج در پایین فاکتورها.
+                    </p>
+                    <a href="{% url 'admin:index' %}" class="btn btn-sm btn-outline-warning text-dark mt-2" target="_blank">پنل ادمین جنگو</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
