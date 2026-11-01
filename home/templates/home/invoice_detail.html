@@ -4,7 +4,7 @@
 {% block content %}
 <style>
     @media print {
-        /* مخفی کردن نوبار، فوتر و دکمه‌های کنترلی (با فرض اینکه کلاس‌های معمول رو دارند) */
+        /* مخفی کردن نوبار، فوتر و دکمه‌های کنترلی */
         nav, header, footer, .navbar, .footer, .no-print {
             display: none !important;
         }
@@ -19,7 +19,7 @@
         /* محدود کردن عرض به اندازه استاندارد کاغذ A4 یا A5 */
         .container {
             width: 100% !important;
-            max-width: 210mm !important; /* عرض استاندارد A4 (اگر A5 می‌خواهید روی 148mm بگذارید) */
+            max-width: 200mm !important; 
             margin: 0 auto !important;
             padding: 0 !important;
         }
@@ -27,120 +27,149 @@
         .invoice-box {
             box-shadow: none !important;
             border: none !important;
-            padding: 10mm !important;
+            padding: 10mm !important; /* کاهش فاصله لبه‌ها در حالت چاپ */
+            padding-top: 20mm !important; /* کاهش فاصله لبه‌ها در حالت چاپ */
             width: 100% !important;
         }
     }
 </style>
 
-<div class="container my-4">
+<div class="container my-2">
     <!-- دکمه‌های کنترلی (هنگام چاپ مخفی می‌شوند) -->
-    <div class="d-flex justify-content-between mb-4 no-print">
-        <a href="{% url 'home:invoice_list' %}" class="btn btn-secondary">⬅️ بازگشت به لیست</a>
+    <div class="d-flex justify-content-between mb-3 no-print">
+        <a href="{% url 'home:invoice_list' %}" class="btn btn-sm btn-secondary">⬅️ بازگشت</a>
         <div>
-            <button onclick="window.print()" class="btn btn-success me-2">🖨️ چاپ فاکتور</button>
-            <a href="{% url 'home:invoice_update' invoice.pk %}" class="btn btn-primary me-2">✏️ ویرایش</a>
-            <a href="{% url 'home:invoice_delete' invoice.pk %}" class="btn btn-danger">🗑️ حذف</a>
+            <button onclick="window.print()" class="btn btn-sm btn-success me-1">🖨️ چاپ</button>
+            <a href="{% url 'home:invoice_update' invoice.pk %}" class="btn btn-sm btn-primary me-1">✏️ ویرایش</a>
+            <a href="{% url 'home:invoice_delete' invoice.pk %}" class="btn btn-sm btn-danger">🗑️ حذف</a>
         </div>
     </div>
 
-    <!-- بدنه اصلی فاکتور -->
-    <div class="invoice-box bg-white p-4 p-md-5 border rounded shadow-sm mx-auto" style="max-width: 800px;">
+    <!-- بدنه اصلی فاکتور (فشرده شده) -->
+    <div class="invoice-box bg-white p-3 border rounded shadow-sm mx-auto" style="max-width: 800px;">
         <!-- سربرگ فاکتور -->
-        <div class="row border-bottom pb-4 mb-4 align-items-center">
-            <p class="fw-bold  h4 text-primary">فاکتور خدمات و فروش کالا </p>
+        <div class="row border-bottom pb-2 mb-3 align-items-center">
+            <div class="col-12">
+                <p class="fw-bold h5 text-primary mb-1">فاکتور خدمات و فروش کالا</p>
+            </div>
             <div class="col-md-6">
-                <p class="text-muted mb-1">شماره فاکتور: <strong>{{ invoice.invoice_number|persian }}</strong></p>
+                <span class="text-muted small">شماره فاکتور:</span> <strong>{{ invoice.invoice_number|persian }}</strong>
             </div>
-            <div class="col-md-6 text-md-end mt-3 mt-md-0">
-                <p class="text-muted mb-0">تاریخ صدور: <strong dir="ltr">{{ invoice.date|to_jalali }}</strong></p>
-                
-                
+            <div class="col-md-6 text-md-end mt-1 mt-md-0">
+                <span class="text-muted small">تاریخ صدور:</span> <strong dir="ltr">{{ invoice.date|to_jalali }}</strong>
             </div>
-            <p class="mb-0 d-print-none"><strong>وضعیت:</strong> 
+            <div class="col-12 d-print-none mt-1">
+                <span class="small"><strong>وضعیت:</strong></span>
                 {% if invoice.status == 'paid' %}
-                    <span class="badge bg-success">پرداخت شده</span>
+                    <span class="badge bg-success py-1">پرداخت شده</span>
                 {% else %}
-                    <span class="badge bg-warning text-dark">پرداخت نشده</span>
+                    <span class="badge bg-warning text-dark py-1">پرداخت نشده</span>
                 {% endif %}
-            </p>
+            </div>
         </div>
 
-        <!-- از طرف فلان به فلان (در یک خط) -->
-        <div class="row mb-4 bg-light p-3 rounded">
+        <!-- اطلاعات طرفین (فشرده) -->
+        <div class="row mb-3 bg-light p-2 rounded small">
             <div class="col-md-6">
-                <span class="text-muted">از طرف: </span> 
-                <strong>{{ invoice.sender }}</strong>
+                <span class="text-muted">از طرف (فروشنده):</span> <strong>{{ invoice.sender }}</strong>
             </div>
-            <div class="col-md-6 mt-2 mt-md-0">
-                <span class="text-muted">به: </span> 
-                <strong>{{ invoice.receiver }}</strong>
+            <div class="col-md-6 mt-1 mt-md-0">
+                <span class="text-muted">به (خریدار):</span> <strong>{{ invoice.receiver }}</strong>
             </div>
         </div>
 
-        <!-- جدول اقلام فاکتور -->
-        <div class="table-responsive mb-4">
-            <table class="table table-bordered align-middle">
+        <!-- جدول اقلام فاکتور (با ارتفاع و پدینگ کمتر) -->
+        <div class="table-responsive mb-3">
+            <table class="table table-bordered table-sm align-middle mb-0" style="font-size: 0.9rem;">
                 <thead class="table-light">
                     <tr>
-                        <th class="text-center" style="width: 5%;">ردیف</th>
-                        <th>شرح کالا / خدمت</th>
-                        <th class="text-center" style="width: 15%;">تعداد</th>
-                        <th class="text-center" style="width: 20%;">فی (ریال)</th>
-                        <th class="text-center" style="width: 20%;">قیمت کل (ریال)</th>
+                        <th class="text-center py-1" style="width: 5%;">ردیف</th>
+                        <th class="py-1">شرح کالا / خدمت</th>
+                        <th class="text-center py-1" style="width: 12%;">تعداد</th>
+                        <th class="text-center py-1" style="width: 18%;">فی (ریال)</th>
+                        <th class="text-center py-1" style="width: 20%;">قیمت کل (ریال)</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for item in invoice.items.all %}
                         <tr>
-                            <td class="text-center">{{ forloop.counter|persian }}</td>
-                            <td>{{ item.description }}</td>
-                            <td class="text-center">{{ item.quantity|persian_intcomma }}</td>
-                            <td class="text-center">{{ item.unit_price|persian_intcomma }}</td>
-                            <td class="text-center fw-bold">{{ item.total_price|persian_intcomma }}</td>
+                            <td class="text-center py-1">{{ forloop.counter|persian }}</td>
+                            <td class="py-1">{{ item.description }}</td>
+                            <td class="text-center py-1">{{ item.quantity|persian_intcomma }}</td>
+                            <td class="text-center py-1">{{ item.unit_price|persian_intcomma }}</td>
+                            <td class="text-center fw-bold py-1">{{ item.total_price|persian_intcomma }}</td>
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="5" class="text-center text-muted">هیچ آیتمی برای این فاکتور ثبت نشده است.</td>
+                            <td colspan="5" class="text-center text-muted py-2">هیچ آیتمی برای این فاکتور ثبت نشده است.</td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
 
-        <!-- بخش محاسبات نهایی (جمع کل، تخفیف، مالیات) -->
-        <div class="row justify-content-end">
+        <!-- بخش محاسبات نهایی (فشرده) -->
+        <div class="row justify-content-end mb-3">
             <div class="col-md-5">
-                <table class="table table-sm borderless">
-                    {% if invoice.discount  or invoice.tax %}
+                <table class="table table-sm borderless mb-3" style="font-size: 0.9rem;">
+                    {% if invoice.discount or invoice.tax %}
                     <tr>
-                        <td class="text-muted">جمع کل اقلام:</td>
-                        <td class="text-end fw-bold">{{ invoice.subtotal|persian_intcomma }} ریال</td>
+                        <td class="text-muted py-1">جمع کل اقلام:</td>
+                        <td class="text-end fw-bold py-1">{{ invoice.subtotal|persian_intcomma }} ریال</td>
                     </tr>
                     <tr>
-                        <td class="text-muted">تخفیف:</td>
-                        <td class="text-end text-danger"> {{ invoice.discount|persian_intcomma }} - ریال</td>
+                        <td class="text-muted py-1">تخفیف:</td>
+                        <td class="text-end text-danger py-1">{{ invoice.discount|persian_intcomma }} - ریال</td>
                     </tr>
                     <tr>
-                        <td class="text-muted">مالیات:</td>
-                        <td class="text-end text-success"> {{ invoice.tax|persian_intcomma }} + ریال</td>
+                        <td class="text-muted py-1">مالیات:</td>
+                        <td class="text-end text-success py-1">{{ invoice.tax|persian_intcomma }} + ریال</td>
                     </tr>
                     {% endif %}
                     <tr class="border-top">
-                        <td class="fs-6 fw-bold pt-2">مبلغ قابل پرداخت:</td>
-                        <td class="text-end fs-6 fw-bold text-primary pt-2">{{ invoice.final_amount|persian_intcomma }} ریال</td>
+                        <td class="fw-bold pt-2">مبلغ قابل پرداخت:</td>
+                        <td class="text-end fw-bold text-dark pt-2">{{ invoice.final_amount|persian_intcomma }} ریال</td>
                     </tr>
                 </table>
             </div>
         </div>
 
-        <!-- یادداشت‌ها و توضیحات -->
+        <!-- یادداشت‌ها و توضیحات (در صورت وجود) -->
         {% if invoice.notes %}
-            <div class="border-top pt-3 mt-4">
-                <h6 class="text-secondary">توضیحات:</h6>
-                <p class="text-muted mb-0">{{ invoice.notes|linebreaksbr }}</p>
+            <div class="border-top pt-2 mb-3" style="font-size: 0.9rem;">
+                <span class="text-secondary fw-bold">توضیحات:</span>
+                <span class="text-muted">{{ invoice.notes|linebreaksbr }}</span>
             </div>
         {% endif %}
+
+        <!-- بخش اطلاعات صاحب کسب‌وکار (فروشنده) و محل امضا -->
+        <div class="border-top pt-5 mt-3 bg-light p-2 rounded small">
+            <div class="row align-items-center">
+                <div class="col-md-7">
+                    <ul class="list-unstyled text-muted mb-0">
+                        <li class="mb-1">نام فروشنده: <strong class="text-dark">{{ invoice.sender }}</strong></li>
+                        {% if invoice.receiver_national_id %}
+                            <li class="mb-1">کد/شناسه ملی: <strong class="text-dark">{{ invoice.receiver_national_id|persian }}</strong></li>
+                        {% endif %}
+                        {% if invoice.receiver_address %}
+                            <li class="mb-1">آدرس: <strong class="text-dark">{{ invoice.receiver_address }}</strong></li>
+                        {% endif %}
+                        {% if invoice.card_number %}
+                            <li class="mb-1">شماره کارت: <strong dir="ltr" class="text-dark">{{ invoice.card_number|persian }}</strong></li>
+                        {% endif %}
+                        {% if invoice.account_number %}
+                            <li class="mb-0">شماره حساب / شبا: <strong dir="ltr" class="text-dark">{{ invoice.account_number|persian }}</strong></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                
+                <!-- محل امضا و مهر فروشنده -->
+                <div class="col-md-5 text-md-end mt-2 mt-md-0 d-flex flex-column justify-content-end align-items-md-end">
+                    <div style="width: 160px; border-bottom: 1px dashed #999; height: 40px;" class="mb-1"></div>
+                    <span class="text-muted" style="font-size: 0.8rem;">مهر و امضای فروشنده</span>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock content %}

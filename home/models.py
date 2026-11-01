@@ -5,7 +5,28 @@ class Invoice(models.Model):
     invoice_number = models.CharField(max_length=50, unique=True, verbose_name="شماره فاکتور")
     date = models.DateField(verbose_name="تاریخ صدور")
     sender = models.CharField(max_length=200, verbose_name="از طرف (فروشنده)")
-    receiver = models.CharField(max_length=200, verbose_name="به فلان (خریدار)")
+    receiver = models.CharField(max_length=200, verbose_name="به نام (خریدار)")
+    
+    # ─── اطلاعات تکمیلی و اختیاری خریدار و فروشنده ───
+    receiver_national_id = models.CharField(
+        max_length=20, blank=True, null=True, 
+        verbose_name="کد ملی / شناسه ملی خریدار"
+    )
+    receiver_address = models.TextField(
+        blank=True, null=True, 
+        verbose_name="آدرس خریدار"
+    )
+    
+    # اطلاعات بانکی فروشنده (اختیاری)
+    card_number = models.CharField(
+        max_length=16, blank=True, null=True, 
+        verbose_name="شماره کارت (۱۶ رقمی)"
+    )
+    account_number = models.CharField(
+        max_length=50, blank=True, null=True, 
+        verbose_name="شماره حساب / شبا"
+    )
+    # ────────────────────────────────────────────────
     
     # فیلدهای محاسباتی و تکمیلی
     discount = models.DecimalField(max_digits=12, decimal_places=0, default=0, verbose_name="تخفیف کل")
@@ -34,6 +55,7 @@ class Invoice(models.Model):
     @property
     def final_amount(self):
         return self.subtotal - self.discount + self.tax
+        
 
 
 class InvoiceItem(models.Model):
