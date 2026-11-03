@@ -28,7 +28,7 @@ from .views import (
 
 app_name = "home"
 urlpatterns = [
-    path("home/", HomeView.as_view(), name="home"),
+    path("", HomeView.as_view(), name="home"),
     path("invoices/", InvoiceListView.as_view(), name="invoice_list"),
     path("invoice/<int:pk>/", InvoiceDetailView.as_view(), name="invoice_detail"),
     path("invoice/new/", InvoiceCreateView.as_view(), name="invoice_create"),
