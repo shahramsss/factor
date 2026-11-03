@@ -132,10 +132,10 @@
                         {% for item in invoice.items.all %}
                             <tr>
                                 <td class="text-center py-1">{{ forloop.counter|persian }}</td>
-                                <td class="py-1">{{ item.description }}</td>
-                                <td class="text-center py-1">{{ item.quantity|persian_intcomma }}</td>
-                                <td class="text-center py-1">{{ item.unit_price|persian_intcomma }}</td>
-                                <td class="text-center fw-bold py-1">{{ item.total_price|persian_intcomma }}</td>
+                                <td class="py-1">{{ item.description|persian }}</td>
+                                <td  dir="ltr" class="text-center py-1">{{ item.quantity|persian_intcomma }}</td>
+                                <td  dir="ltr" class="text-center py-1">{{ item.unit_price|persian_intcomma }}</td>
+                                <td  dir="ltr" class="text-center fw-bold py-1">{{ item.total_price|persian_intcomma }}</td>
                             </tr>
                         {% empty %}
                             <tr>
@@ -153,20 +153,20 @@
                         {% if invoice.discount or invoice.tax %}
                         <tr>
                             <td class="text-muted py-1">جمع کل اقلام:</td>
-                            <td class="text-end fw-bold py-1">{{ invoice.subtotal|persian_intcomma }} ریال</td>
+                            <td dir="ltr" class="text-end fw-bold py-1">{{ invoice.subtotal|persian_intcomma }} ریال</td>
                         </tr>
                         <tr>
                             <td class="text-muted py-1">تخفیف:</td>
-                            <td class="text-end text-danger py-1">{{ invoice.discount|persian_intcomma }} ریال</td>
+                            <td dir="ltr" class="text-end text-danger py-1">{{ invoice.discount|persian_intcomma }} ریال</td>
                         </tr>
                         <tr>
                             <td class="text-muted py-1">مالیات:</td>
-                            <td class="text-end text-success py-1">+ {{ invoice.tax|persian_intcomma }} ریال</td>
+                            <td dir="ltr" class="text-end text-success py-1">+ {{ invoice.tax|persian_intcomma }} ریال</td>
                         </tr>
                         {% endif %}
                         <tr class="border-top">
                             <td class="fw-bold pt-2">مبلغ قابل پرداخت:</td>
-                            <td class="text-end fw-bold text-dark pt-2">{{ invoice.final_amount|persian_intcomma }} ریال</td>
+                            <td class="text-end fw-bold text-dark pt-2"><span dir="ltr">{{ invoice.final_amount|persian_intcomma }}</span> ریال</td>
                         </tr>
                     </table>
                 </div>
@@ -220,7 +220,7 @@
                     <!-- محل امضا و مهر فروشنده -->
                     <div dir="ltr" class="col-md-5 text-md-end mt-2 mt-md-0 d-flex flex-column justify-content-end align-items-md-end">
                         <div style="width: 160px; border-bottom: 1px dashed #999; height: 40px;" class="mb-1"></div>
-                        <span class="text-muted" style="font-size: 0.8rem;">مهر و امضای فروشنده</span>
+                        <span class="text-muted" style="font-size: 0.8rem;">امضاء</span>
                     </div>
                 </div>
             </div>
